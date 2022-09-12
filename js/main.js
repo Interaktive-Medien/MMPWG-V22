@@ -51,7 +51,7 @@ function zeichneWGs(data) {
 
             '<div class="wg">' +
             '<h2>' + element.titel + '</h2>' +
-            '<img class="wg-image" src="images/' + element.bild + '">' +
+            '<img class="wg-image" src="' + element.bild + '">' +
             '<p>' + element.beschreibung + '</p>' +
             '<a href="maps.google.com">' + element.adresse + '</a>'
             + '</div>';

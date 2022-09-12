@@ -57,15 +57,21 @@ function getUserWG() {
                 document.querySelector('#adresse').value = data[0].adresse;
                 document.querySelector('#beschreibung').value = data[0].beschreibung;
                 document.querySelector('#stadt').value = data[0].stadt;
+                document.querySelector('#bild').value = data[0].bild;
+
+                document.querySelector('#bild-vorschau').src = data[0].bild;
 
                 // setze den korrekten Status
-                if (data[0].status){
+
+                console.log(data[0].status);
+
+                if (data[0].status == 1){
 
                     document.querySelector('#status-frei').checked = true;
 
                 } else {
 
-                    document.querySelector('#status-frei').besetzt = true;
+                    document.querySelector('#status-besetzt').checked = true;
 
                 }
 
@@ -92,6 +98,7 @@ function insertWG(){
     let adresse = document.querySelector('#adresse').value;
     let beschreibung = document.querySelector('#beschreibung').value;
     let stadt = document.querySelector('#stadt').value;
+    let bild = document.querySelector('#bild').value;
     let status = document.querySelector('input[name="status"]:checked').value;
 
     let formData = new FormData(); 
@@ -101,6 +108,7 @@ function insertWG(){
     formData.append('beschreibung', beschreibung);
     formData.append('stadt', stadt);
     formData.append('status', status);
+    formData.append('bild', bild);
 
     fetch("https://376009-17.web.fhgr.ch/php/insertWG.php",
         {
@@ -155,6 +163,7 @@ function updateWG(){
     let adresse = document.querySelector('#adresse').value;
     let beschreibung = document.querySelector('#beschreibung').value;
     let stadt = document.querySelector('#stadt').value;
+    let bild = document.querySelector('#bild').value;
     let status = document.querySelector('input[name="status"]:checked').value;
 
     let formData = new FormData(); 
@@ -164,6 +173,7 @@ function updateWG(){
     formData.append('beschreibung', beschreibung);
     formData.append('stadt', stadt);
     formData.append('status', status);
+    formData.append('bild', bild);
 
     fetch("https://376009-17.web.fhgr.ch/php/updateWG.php",
         {
@@ -253,8 +263,12 @@ function deleteWG(){
             document.querySelector('#adresse').value = "";
             document.querySelector('#beschreibung').value = "";
             document.querySelector('#stadt').value = "";
+            document.querySelector('#bild').value = "";
             document.querySelector('#status-frei').checked = false;
             document.querySelector('#status-besetzt').checked = false;
+
+            document.querySelector('#bild-vorschau').src = "";
+
 
         })
 }

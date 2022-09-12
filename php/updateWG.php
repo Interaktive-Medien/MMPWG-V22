@@ -9,7 +9,7 @@ $beschreibung = $_POST["beschreibung"];
 $stadt = $_POST["stadt"];
 $status = $_POST["status"];
 
-$bild = 'https://www.google.ch';
+$bild = $_POST["bild"];
 
 
 $sql = "UPDATE wg SET titel=?, bild=?, adresse=?, stadt=?, beschreibung=?, status=? WHERE user=?";

@@ -8,8 +8,7 @@ $adresse = $_POST["adresse"];
 $beschreibung = $_POST["beschreibung"];
 $stadt = $_POST["stadt"];
 $status = $_POST["status"];
-
-$bild = 'https://www.google.ch';
+$bild = $_POST["bild"];
 
 
 $stmt = $pdo->prepare("INSERT INTO wg (titel, bild, adresse, stadt, beschreibung, user, status) VALUES (:titel, :bild, :adresse, :stadt, :beschreibung, :user, :status)");
