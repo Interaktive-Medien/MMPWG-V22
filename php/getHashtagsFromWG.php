@@ -9,7 +9,7 @@ $wgID = $_POST["wgID"];
 
 $stmt = $pdo->prepare("
 
-SELECT h.hashtag FROM hashtag h 
+SELECT h.ID, h.hashtag FROM hashtag h 
 INNER JOIN wg_hat_hashtag junc ON h.ID = junc.hashtag_id
 WHERE junc.wg_id = '$wgID';
 

@@ -2,9 +2,8 @@
 var hashtags = [];
 var wgID = "";
 
-// muss mit der Funktion getHashtags beginnen, da sonst die Hashtags nicht eingefärbt werden können
-// fix this
-getHashtags();
+getAllHashtags();
+getUserWG();
 
 function getUserWG() {
 
@@ -43,11 +42,8 @@ function getUserWG() {
         })
         .then((data) => {
 
-            console.log(data.length);
-            console.log(data);
-
             // falls es noch keine WG zu diesem User gibt
-            if (data.length == 1) {
+            if (data.length == 0) {
 
                 // zeige Infotext an
                 document.querySelector('#infoText').innerHTML = "Fülle dieses Formular aus, um deine WG aufzuschalten:"
@@ -87,22 +83,7 @@ function getUserWG() {
                 }
 
                 // hashtags korrekt einfärben, aber nur falls diese existieren
-                if (data[1]) {
-
-                    let hashtagArray = data[1];
-                    // console.log(data[1][0].ID);
-
-                    hashtagArray.forEach(hashtag => {
-
-                        // färbe die hashtags ein
-                        document.getElementById(hashtag.ID).style = "color: Blue;";
-
-                        // pushe die hashtags in die globale variable
-                        hashtags.push(parseInt(hashtag.ID));
-
-                    });
-
-                }
+                getHashtagsFromWG(wgID);
 
                 // zeige den korrekten Button an
                 document.querySelector('#button-update').classList.remove("hidden");
@@ -325,13 +306,13 @@ function deleteWG() {
 // Hashtags
 // Hashtags
 
-function getHashtags() {
+function getAllHashtags() {
 
     // get authentication variables from localstorage
     let user = localStorage.getItem('user');
     let token = localStorage.getItem('token');
 
-    fetch("https://376009-17.web.fhgr.ch/php/getHashtags.php",
+    fetch("https://376009-17.web.fhgr.ch/php/getAllHashtags.php",
         {
             body: "",
             method: "post",
@@ -372,11 +353,6 @@ function getHashtags() {
 
             });
 
-            // spaghetti-code!!
-            // hier irgendwie promise returnen und erst dann getUserWG abrufen?
-
-            getUserWG();
-
         })
 }
 
@@ -395,5 +371,72 @@ function addHashtag(id) {
         hashtags.splice(hashtags.indexOf(id), 1);
 
     }
+
+}
+
+function getHashtagsFromWG(id) {
+
+    // get authentication variables from localstorage
+    let user = localStorage.getItem('user');
+    let token = localStorage.getItem('token');
+
+    let formData = new FormData();
+    formData.append('wgID', id);
+
+    fetch("https://376009-17.web.fhgr.ch/php/getHashtagsFromWG.php",
+        {
+            body: formData,
+            method: "post",
+            headers: {
+
+                'Authorization': 'Basic ' + btoa(user + ':' + token),
+
+            }
+        })
+
+        .then((res) => {
+
+            // error handling if session is expired
+            if (res.status >= 200 && res.status < 300) {
+
+                return res.json();
+
+            } else {
+
+                alert('Deine Sitzung ist abgelaufen. Du wirst auf die Login-Seite weitergeleitet.');
+                window.location = "/login.html"
+
+            }
+
+        })
+        .then((data) => {
+
+            // console.log(id);
+
+            // console.log(data);
+
+            if (data) {
+
+                data.forEach(hashtag => {
+
+                    // färbe die hashtags ein
+                    document.getElementById(hashtag.ID).style = "color: Blue;";
+
+                    // pushe die hashtags in die globale variable
+                    hashtags.push(parseInt(hashtag.ID));
+
+                });
+
+            }
+
+        })
+
+}
+
+function logout() {
+
+    localStorage.clear();
+
+    window.location = "/login.html";
 
 }

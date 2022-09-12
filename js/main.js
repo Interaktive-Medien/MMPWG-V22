@@ -58,7 +58,7 @@ function zeichneWGs(data) {
 
         document.getElementById("liste-wg").appendChild(child);
 
-        getWgHashtags(element.ID);
+        getHashtagsFromWG(element.ID);
 
     });
 
@@ -106,7 +106,7 @@ function getUser() {
         })
 }
 
-function getWgHashtags(id) {
+function getHashtagsFromWG(id) {
 
     // get authentication variables from localstorage
     let user = localStorage.getItem('user');
@@ -115,7 +115,7 @@ function getWgHashtags(id) {
     let formData = new FormData();
     formData.append('wgID', id);
 
-    fetch("https://376009-17.web.fhgr.ch/php/getWgHashtags.php",
+    fetch("https://376009-17.web.fhgr.ch/php/getHashtagsFromWG.php",
         {
             body: formData,
             method: "post",
