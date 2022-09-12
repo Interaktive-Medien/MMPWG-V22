@@ -30,6 +30,8 @@ registrierButton.addEventListener('click', async (e) => {
             localStorage.setItem("user", data[1]);
             localStorage.setItem("token", data[2]);
 
+            window.location="https://376009-17.web.fhgr.ch/"
+
         })
 
 });

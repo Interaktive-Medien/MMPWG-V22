@@ -1,39 +1,88 @@
 html {
 
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
 }
 
 h1 {
 
     font-size: 40px;
-    color: rgb(25, 49, 59);
-    
+    color: #4c86af;
+
 }
 
 a {
 
-    color: rgb(5, 72, 100);   
+    color: rgb(5, 72, 100);
 }
 
-input{
+input {
     margin: 10px;
 }
 
-button{
+textarea {
+    margin: 10px;
+    width: 50%;
+}
+
+.dropdown{
+
+    margin: 10px;  
+}
+
+button {
 
     margin: 10px;
 
 }
 
-.wg{
+.wg {
 
     border: 2px solid rgb(110, 168, 192);
     padding: 10px;
     margin-bottom: 5px;
 }
 
-.wg-image{
+.wg-image {
 
     width: 20%;
+}
+
+#liste-wg {
+
+    width: 50%;
+
+}
+
+nav {
+    text-align: right;
+}
+
+button {
+    background-color: #4c86af;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.flex {
+
+    display: flex;
+}
+
+.halbeSeite {
+
+    width: 50%;
+}
+
+.hidden {
+
+    display: none;
+
 }

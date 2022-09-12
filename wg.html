@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine WG</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="flex">
+
+        <div class="halbeSeite">
+
+            <h1>Meine WG</h1>
+
+        </div>
+
+        <nav class="halbeSeite">
+
+            <a href="../">
+
+                <button id="neueWG"> Alle WGs</button>
+
+            </a>
+
+            <button id="logout" onclick="logout()"> Logout </button>
+
+        </nav>
+
+    </div>
+
+    <p id="infoText"> </p>
+
+
+    <div id="meineWG">
+
+        <label for="titel">Titel</label> <br>
+        <input id="titel" type="text" value=""> <br>
+
+        <label for="adresse">Adresse</label> <br>
+        <input id="adresse" type="text" value=""> <br>
+
+        <label for="beschreibung">Beschreibung</label> <br>
+        <textarea id="beschreibung" name="beschreibung"> </textarea> <br> <br>
+
+        <label for="stadt">Nächste Stadt</label> <br>
+        <select class="dropdown" name="stadt" id="stadt">
+            <option value="2">Chur</option>
+            <option value="1">Bern</option>
+            <option value="3">Zürich</option>
+        </select> <br>
+
+        <p>Status</p>
+        <input type="radio" id="status-frei" name="status" value="1">
+        <label for="status-frei">Verfügbar</label><br>
+
+        <input type="radio" id="status-besetzt" name="status" value="0">
+        <label for="status-besetzt">Nicht Verfügbar</label><br>
+
+        <button class="hidden" id="button-insert" onclick="insertWG('insert')">Veröffentlichen</button>
+        <button class="hidden" id="button-update" onclick="updateWG('update')">Aktualisieren</button>
+        <button class="hidden" id="button-delete" onclick="deleteWG()">Löschen</button>
+
+        <p id="nachricht"> </p>
+
+    </div>
+
+    <!-- <script src="js/main.js"></script> -->
+    <script src="js/wg.js"></script>
+</body>
+
+</html>

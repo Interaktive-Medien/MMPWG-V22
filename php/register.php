@@ -1,12 +1,12 @@
 <?php
 require_once('config.php');
 
-$email = $_POST["email"];
+$username = $_POST["username"];
 
 // damit basic-auth funktioniert, muss in .htaccess folgende zeile sein:
 // RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-$username = $_SERVER["PHP_AUTH_USER"];
+$email = $_SERVER["PHP_AUTH_USER"];
 $password = $_SERVER["PHP_AUTH_PW"];
 
 // echo $_SERVER['HTTP_CUSTOMHEADER'];

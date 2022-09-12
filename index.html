@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -12,14 +13,34 @@
 </head>
 
 <body>
-    
-    <h1>Hello mmpwg!</h1>
+
+    <div class="flex">
+
+        <div class="halbeSeite">
+
+            <h1>MMP-WG</h1>
+
+        </div>
+
+        <nav class="halbeSeite">
+
+            <a href="/wg.html">
+                <button id="neueWG"> Meine WG</button>
+            </a>
+            <button id="logout" onclick="logout()"> Logout </button>
+
+        </nav>
+
+    </div>
+
+    <h2>Herzlich Willkommen, <span id="userName"> </span> </h2>
 
     <div id="liste-wg">
 
     </div>
-    
-    <script src="js/script.js"></script>
+
+    <script src="js/main.js"></script>
 
 </body>
+
 </html>

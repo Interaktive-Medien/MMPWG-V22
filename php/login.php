@@ -16,7 +16,7 @@ SELECT ID, name, email, password FROM user WHERE email='$email';
 
 // check if email exists in database
 
-if ($stmt->execute()) {
+if ($stmt->execute()) { 
 
     $resultateArray = $stmt->fetchAll();
 

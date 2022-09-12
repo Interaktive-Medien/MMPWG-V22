@@ -8,7 +8,7 @@ registrierButton.addEventListener('click', async (e) => {
     let email = document.querySelector('#email').value;
 
     let formData = new FormData();
-    formData.append('email', email);
+    formData.append('username', username);
 
     fetch("https://376009-17.web.fhgr.ch/php/register.php",
         {
@@ -16,7 +16,7 @@ registrierButton.addEventListener('click', async (e) => {
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(username + ':' + password),
+                'Authorization': 'Basic ' + btoa(email + ':' + password),
                 // 'CustomHeader' : 'hallo'
             }
         })
@@ -28,41 +28,11 @@ registrierButton.addEventListener('click', async (e) => {
         })
         .then((data) => {
 
+            
+
             console.log(data);
             document.querySelector('#nachricht').innerHTML = data;
 
         })
 
 });
-
-// registrierButton.addEventListener('click', async (e) => {
-//     e.preventDefault();
-
-//     let formData = new FormData();
-//     formData.append('username', 'nick');
-//     formData.append('password', 'password');
-
-//     fetch("https://376009-17.web.fhgr.ch/php/login.php",
-//         {
-//             body: formData,
-//             method: "post",
-//             headers: {
-
-//                 'Authorization': 'Basic ' + btoa('login:password'),
-//                 'CustomHeader': 'mycustomheader',
-
-//             }
-//         })
-
-//         .then((res) => {
-
-//             return res.text();
-
-//         })
-//         .then((data) => {
-
-//             console.log(data)
-
-//         })
-
-// });
