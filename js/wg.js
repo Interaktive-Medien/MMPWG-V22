@@ -44,6 +44,7 @@ function getUserWG() {
         .then((data) => {
 
             console.log(data.length);
+            console.log(data);
 
             // falls es noch keine WG zu diesem User gibt
             if (data.length == 1) {
