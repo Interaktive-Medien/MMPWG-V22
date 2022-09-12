@@ -1,4 +1,10 @@
-getUserWG()
+// globaler array hashtags
+var hashtags = [];
+var wgID = "";
+
+// muss mit der Funktion getHashtags beginnen, da sonst die Hashtags nicht eingefärbt werden können
+// fix this
+getHashtags();
 
 function getUserWG() {
 
@@ -30,15 +36,17 @@ function getUserWG() {
             } else {
 
                 alert('Deine Sitzung ist abgelaufen. Du wirst auf die Login-Seite weitergeleitet.');
-                window.location="/login.html"
+                window.location = "/login.html"
 
             }
 
         })
         .then((data) => {
 
+            console.log(data.length);
+
             // falls es noch keine WG zu diesem User gibt
-            if(data.length == 0){
+            if (data.length == 1) {
 
                 // zeige Infotext an
                 document.querySelector('#infoText').innerHTML = "Fülle dieses Formular aus, um deine WG aufzuschalten:"
@@ -46,7 +54,7 @@ function getUserWG() {
                 // zeige den korrekten Button an
                 document.querySelector('#button-insert').classList.remove("hidden");
 
-            // falls es bereits eine WG zu diesem User gibt
+                // falls es bereits eine WG zu diesem User gibt
             } else {
 
                 // zeige Infotext an
@@ -61,11 +69,13 @@ function getUserWG() {
 
                 document.querySelector('#bild-vorschau').src = data[0].bild;
 
+                // speichere die wg ID in der globalen variable
+                // diese brauchen wir später zum aktualisieren und löschen der WG
+                wgID = data[0].ID;
+
                 // setze den korrekten Status
 
-                console.log(data[0].status);
-
-                if (data[0].status == 1){
+                if (data[0].status == 1) {
 
                     document.querySelector('#status-frei').checked = true;
 
@@ -75,20 +85,33 @@ function getUserWG() {
 
                 }
 
+                // hashtags korrekt einfärben, aber nur falls diese existieren
+                if (data[1]) {
+
+                    let hashtagArray = data[1];
+                    // console.log(data[1][0].ID);
+
+                    hashtagArray.forEach(hashtag => {
+
+                        // färbe die hashtags ein
+                        document.getElementById(hashtag.ID).style = "color: Blue;";
+
+                        // pushe die hashtags in die globale variable
+                        hashtags.push(parseInt(hashtag.ID));
+
+                    });
+
+                }
+
                 // zeige den korrekten Button an
                 document.querySelector('#button-update').classList.remove("hidden");
                 document.querySelector('#button-delete').classList.remove("hidden");
-                
+
             }
-
-            console.log(data);
-
-
-
         })
 }
 
-function insertWG(){
+function insertWG() {
 
     // get authentication variables from localstorage
     let user = localStorage.getItem('user');
@@ -101,7 +124,9 @@ function insertWG(){
     let bild = document.querySelector('#bild').value;
     let status = document.querySelector('input[name="status"]:checked').value;
 
-    let formData = new FormData(); 
+    let jsonHashtags = JSON.stringify(hashtags)
+
+    let formData = new FormData();
     formData.append('userID', user);
     formData.append('titel', titel);
     formData.append('adresse', adresse);
@@ -109,6 +134,8 @@ function insertWG(){
     formData.append('stadt', stadt);
     formData.append('status', status);
     formData.append('bild', bild);
+
+    formData.append('hashtags', jsonHashtags);
 
     fetch("https://376009-17.web.fhgr.ch/php/insertWG.php",
         {
@@ -131,7 +158,7 @@ function insertWG(){
             } else {
 
                 alert('Deine Sitzung ist abgelaufen. Du wirst auf die Login-Seite weitergeleitet.');
-                window.location="/login.html"
+                window.location = "/login.html"
 
             }
 
@@ -153,7 +180,7 @@ function insertWG(){
 }
 
 
-function updateWG(){
+function updateWG() {
 
     // get authentication variables from localstorage
     let user = localStorage.getItem('user');
@@ -166,7 +193,9 @@ function updateWG(){
     let bild = document.querySelector('#bild').value;
     let status = document.querySelector('input[name="status"]:checked').value;
 
-    let formData = new FormData(); 
+    let jsonHashtags = JSON.stringify(hashtags)
+
+    let formData = new FormData();
     formData.append('userID', user);
     formData.append('titel', titel);
     formData.append('adresse', adresse);
@@ -174,6 +203,10 @@ function updateWG(){
     formData.append('stadt', stadt);
     formData.append('status', status);
     formData.append('bild', bild);
+    formData.append('hashtags', jsonHashtags);
+
+    formData.append('wgID', wgID);
+
 
     fetch("https://376009-17.web.fhgr.ch/php/updateWG.php",
         {
@@ -196,7 +229,7 @@ function updateWG(){
             } else {
 
                 alert('Deine Sitzung ist abgelaufen. Du wirst auf die Login-Seite weitergeleitet.');
-                window.location="/login.html"
+                window.location = "/login.html"
 
             }
 
@@ -213,14 +246,15 @@ function updateWG(){
 }
 
 
-function deleteWG(){
+function deleteWG() {
 
     // get authentication variables from localstorage
     let user = localStorage.getItem('user');
     let token = localStorage.getItem('token');
 
-    let formData = new FormData(); 
+    let formData = new FormData();
     formData.append('userID', user);
+    formData.append('wgID', wgID);
 
     fetch("https://376009-17.web.fhgr.ch/php/deleteWG.php",
         {
@@ -243,7 +277,7 @@ function deleteWG(){
             } else {
 
                 alert('Deine Sitzung ist abgelaufen. Du wirst auf die Login-Seite weitergeleitet.');
-                window.location="/login.html"
+                window.location = "/login.html"
 
             }
 
@@ -269,6 +303,96 @@ function deleteWG(){
 
             document.querySelector('#bild-vorschau').src = "";
 
+            document.querySelector('.hashtag').style = "Color: black;"
+
+            hashtags = [];
+            wgID = "";
+            
+
 
         })
+};
+
+// Hashtags
+// Hashtags
+// Hashtags
+// Hashtags
+// Hashtags
+// Hashtags
+// Hashtags
+// Hashtags
+// Hashtags
+// Hashtags
+
+function getHashtags() {
+
+    // get authentication variables from localstorage
+    let user = localStorage.getItem('user');
+    let token = localStorage.getItem('token');
+
+    fetch("https://376009-17.web.fhgr.ch/php/getHashtags.php",
+        {
+            body: "",
+            method: "post",
+            headers: {
+
+                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                // 'CustomHeader' : 'hallo'
+            }
+        })
+
+        .then((res) => {
+
+            // error handling if session is expired
+            if (res.status >= 200 && res.status < 300) {
+
+                return res.json();
+
+            } else {
+
+                alert('Deine Sitzung ist abgelaufen. Du wirst auf die Login-Seite weitergeleitet.');
+                window.location = "/login.html"
+
+            }
+
+        })
+        .then((data) => {
+
+            data.forEach(hashtag => {
+
+                // console.log(hashtag);
+
+                let dieserHashtag = document.createElement("div");
+
+                dieserHashtag.innerHTML = " <p onclick='addHashtag(" + hashtag.ID + ")' id='" + hashtag.ID + "' class='hashtag'> #" + hashtag.hashtag + "</p> ";
+
+                dieserHashtag.style = 'margin-right: 10px; cursor: pointer;';
+                document.getElementById("hashtags").appendChild(dieserHashtag);
+
+            });
+
+            // spaghetti-code!!
+            // hier irgendwie promise returnen und erst dann getUserWG abrufen?
+
+            getUserWG();
+
+        })
+}
+
+function addHashtag(id) {
+
+    if (hashtags.indexOf(id) == -1) {
+
+        document.getElementById(id).style = "Color: blue;"
+
+        hashtags.push(id);
+
+    } else {
+
+        document.getElementById(id).style = "Color: black;"
+
+        hashtags.splice(hashtags.indexOf(id), 1);
+
+    }
+
 }
