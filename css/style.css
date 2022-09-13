@@ -8,8 +8,12 @@ h1 {
 
     font-size: 40px;
     color: #4c86af;
-    text-align: center;
 
+}
+
+.title{
+
+    text-align: center;
 }
 
 a {
