@@ -8,27 +8,28 @@ $wgID = $_POST["wgID"];
 $sql = "DELETE FROM wg WHERE user = ?";
 $stmt = $pdo->prepare($sql);
 
-$success = $stmt->execute([$userID]);
+$erfolg = $stmt->execute([$userID]);
 
-// falls success true bzw. 1 ist
-if ($success) {
+// falls erfolg true bzw. 1 ist
+// lösche ebenfalls die Hashtags zur WG
+if ($erfolg) {
 
     $sql = "DELETE FROM wg_hat_hashtag WHERE wg_id = ?";
     $stmt = $pdo->prepare($sql);
 
-    $success = $stmt->execute([$wgID]);
+    $erfolg = $stmt->execute([$wgID]);
 
-    if ($success){
+    if ($erfolg){
 
         print_r('WG erfolgreich gelöscht.');
 
     } else {
 
-        print_r($success);
+        print_r($erfolg);
 
     }
 
 } else {
 
-    print_r($success);
+    print_r($erfolg);
 };

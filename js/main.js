@@ -161,9 +161,6 @@ function getHashtagsFromWG(id) {
 
 }
 
-
-// Eventlistener Functions
-
 function logout() {
 
     localStorage.clear();

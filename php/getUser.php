@@ -7,13 +7,13 @@ $userID = $_POST["userID"];
 
 // prepare pdo-statement
 
-$stmt = $pdo->prepare("
+$sql = "SELECT name FROM user WHERE ID='$userID';";
 
-SELECT name FROM user WHERE ID='$userID';
+$stmt = $pdo->prepare($sql);
 
-");
+$erfolg = $stmt->execute();
 
-if ($stmt->execute()) {
+if ($erfolg) {
 
     $resultateArray = $stmt->fetchAll();
 

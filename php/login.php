@@ -6,88 +6,92 @@ require_once('config.php');
 $email = $_SERVER["PHP_AUTH_USER"];
 $password = $_SERVER["PHP_AUTH_PW"];
 
-// prepare pdo-statement
+// prüfe, ob mit dieser E-Mail ein User registriert ist
 
-$stmt = $pdo->prepare("
+$sql = "SELECT ID, name, email, password FROM user WHERE email='$email';";
+$stmt = $pdo->prepare($sql);
 
-SELECT ID, name, email, password FROM user WHERE email='$email';
+$erfolg = $stmt->execute();
 
-");
-
-// check if email exists in database
-
-if ($stmt->execute()) { 
+if ($erfolg) { 
 
     $resultateArray = $stmt->fetchAll();
 
     $anzahlResultate = count($resultateArray);
 
+    // nur wenn genau 1 user mit dieser email registriert ist, kann eingeloggt werden
     if ($anzahlResultate == 1) {
 
-        $dbPassword = $resultateArray[0]['password'];
+        // speichere das passwort des users in einer variable
+        $dbPasswort = $resultateArray[0]['password'];
 
-        // if email exists, check that password exists
-        checkPassword($password, $dbPassword, $resultateArray[0]);
+        $userInfo = $resultateArray[0];
+
+        // prüfe das passwort
+        pruefePasswort($password, $dbPasswort, $userInfo);
+
     } else {
 
-        $message = 'Diese E-Mail Adresse wurde nicht in der Datenbank gefunden.';
-        sendResponse($message, 0 , 0);
+        $nachricht = 'Diese E-Mail Adresse wurde nicht in der Datenbank gefunden.';
+        sendeAntwort($nachricht, 0 , 0);
     }
 }
 
-function checkPassword($password, $dbPassword, $userInfo)
+function pruefePasswort($password, $dbPassword, $userInfo)
 {
 
-    // check if passwords match
+    // prüfe, ob das eingegebene passwort und das passwort aus der Datenbank übereinstimmen
 
-    $success = password_verify($password, $dbPassword);
+    $erfolg = password_verify($password, $dbPassword);
 
-    if ($success) {
+    if ($erfolg) {
 
-        // print_r('Login erfolgreich.');
-        createToken($userInfo, 0 , 0);
+        // wenn das passwort stimmt, erstelle einen token
+        erstelleToken($userInfo, 0 , 0);
+
     } else {
 
-        $message = 'Das Passwort ist falsch.';
-        sendResponse($message, 0, 0);
+        $nachricht = 'Das Passwort ist falsch.';
+        sendeAntwort($nachricht, 0, 0);
     };
 }
 
 
-function createToken($userInfo)
+function erstelleToken($userInfo)
 {
     require('config.php');
 
     $userID = $userInfo['ID'];
     $token = generateRandomString(42);
 
-    $stmt = $pdo->prepare("INSERT INTO session (user_ID, token) VALUES (:UserID, :Token)");
+    $sql = "INSERT INTO session (user_ID, token) VALUES (:UserID, :Token)";
 
-    $success = $stmt->execute(array('UserID' => $userID, 'Token' => $token));
+    $stmt = $pdo->prepare($sql);
 
-    // falls success true bzw. 1 ist
-    if ($success) {
+    $erfolg = $stmt->execute(array('UserID' => $userID, 'Token' => $token));
 
-        $message = "Login erfolgreich.";
+    // falls erfolg true bzw. 1 ist
+    if ($erfolg) {
 
-        sendResponse($message, $userID, $token);
+        $nachricht = "Login erfolgreich.";
+
+        sendeAntwort($nachricht, $userID, $token);
         
     } else {
 
-        $message = "Es konnte kein Token erstellt werden";
-        sendResponse($message, 0, 0);
+        $nachricht = "Es konnte kein Token erstellt werden";
+        sendeAntwort($nachricht, 0, 0);
     };
 }
 
 // send answer to frontend
-function sendResponse($message, $userID, $token)
+function sendeAntwort($nachricht, $userID, $token)
 {
+    $antwort = array($nachricht, $userID, $token);
 
-    $response = array($message, $userID, $token);
+    $jsonAntwort = json_encode($antwort);
 
-    $jsonResponse = json_encode($response);
-
-    print_r($jsonResponse);
+    print_r($jsonAntwort);
 }
 
 function generateRandomString($length)

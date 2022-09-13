@@ -7,13 +7,13 @@ $userID = $_POST["userID"];
 
 // prepare pdo-statement
 
-$stmt = $pdo->prepare("
+$sql = "SELECT * FROM wg WHERE user ='$userID';";
 
-SELECT * FROM wg WHERE user ='$userID';
+$stmt = $pdo->prepare($sql);
 
-");
+$erfolg = $stmt->execute();
 
-if ($stmt->execute()) {
+if ($erfolg) {
 
     $resultatInserat = $stmt->fetchAll();
 

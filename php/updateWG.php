@@ -18,40 +18,60 @@ $hashtags = json_decode($_POST['hashtags']);
 $sql = "UPDATE wg SET titel=?, bild=?, adresse=?, stadt=?, beschreibung=?, status=? WHERE user=?";
 $stmt = $pdo->prepare($sql);
 
-$success = $stmt->execute([$titel, $bild, $adresse, $stadt, $beschreibung, $status, $userID]);
+$erfolg = $stmt->execute([$titel, $bild, $adresse, $stadt, $beschreibung, $status, $userID]);
 
-// falls success true bzw. 1 ist
-if ($success) {
+// falls erfolg true bzw. 1 ist
+if ($erfolg) {
 
-    // lösche die alten hashtags
-    $sql = "DELETE FROM wg_hat_hashtag WHERE wg_id = ?";
-    $stmt = $pdo->prepare($sql);
+    loescheAlteHashtags($wgID);
 
-    $success = $stmt->execute([$wgID]);
+    insertNeueHashtags($hashtags, $wgID);
+
+} else {
+
+    print_r($erfolg);
+
+};
+
+function loescheAlteHashtags($wgID){
+
+        require('config.php');
+
+        // lösche die alten hashtags
+        $sql = "DELETE FROM wg_hat_hashtag WHERE wg_id = ?";
+        $stmt = $pdo->prepare($sql);
+    
+        $stmt->execute([$wgID]);
+
+}
+
+function insertNeueHashtags($hashtags, $wgID){
+
+    require('config.php');
 
     // füge die neuen hashtags ein, wenn überhaupt hashtags angeklickt wurden
     if (sizeof($hashtags) > 0) {
 
-        $stmt = $pdo->prepare("INSERT INTO wg_hat_hashtag (wg_id, hashtag_id) VALUES (:wg_id, :hashtag_id)");
+        $sql = "INSERT INTO wg_hat_hashtag (wg_id, hashtag_id) VALUES (:wg_id, :hashtag_id)";
+        $stmt = $pdo->prepare($sql);
 
         foreach ($hashtags as $hashtag) {
 
-            $success = $stmt->execute(array('wg_id' => $wgID, 'hashtag_id' => $hashtag));
+            $erfolg = $stmt->execute(array('wg_id' => $wgID, 'hashtag_id' => $hashtag));
         }
 
-        if ($success) {
+        if ($erfolg) {
 
             print_r("Dein Inserat wurde aktualisiert.");
+
         } else {
 
             // gib die Fehlermeldung aus
-            print_r($success);
+            print_r($erfolg);
         }
     } else {
 
         print_r("Dein Inserat wurde ohne Hashtags aktualisiert.");
     }
-} else {
 
-    print_r($success);
-};
+}

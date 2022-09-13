@@ -5,17 +5,20 @@ require_once('authorization.php');
 
 // prepare pdo-statement
 
-$stmt = $pdo->prepare("
+$sql = "SELECT * FROM hashtag;";
+$stmt = $pdo->prepare($sql);
 
-SELECT * FROM hashtag;
+$success = $stmt->execute();
 
-");
-
-if ($stmt->execute()) {
+if ($success) {
 
     $resultateArray = $stmt->fetchAll();
 
     $jsonArray = json_encode($resultateArray);
 
     print_r($jsonArray);
+
+} else {
+
+    print_r("Hashtags können nicht geladen werden.");
 }

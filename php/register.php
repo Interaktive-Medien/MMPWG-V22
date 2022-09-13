@@ -16,18 +16,20 @@ if (existiertEmail($email)) {
     // verschlüssle das passwort
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $pdo->prepare("INSERT INTO user (name, email, password) VALUES (:Name, :Email, :Password)");
+    $sql = "INSERT INTO user (name, email, password) VALUES (:Name, :Email, :Password)";
 
-    $success = $stmt->execute(array('Name' => $username, 'Email' => $email, 'Password' => $password));
+    $stmt = $pdo->prepare($sql);
 
-    // falls success true bzw. 1 ist
-    if ($success) {
+    $erfolg = $stmt->execute(array('Name' => $username, 'Email' => $email, 'Password' => $password));
+
+    // falls erfolg true bzw. 1 ist
+    if ($erfolg) {
 
         print_r('Registrierung erfolgreich.');
 
     } else {
 
-        print_r($success);
+        print_r($erfolg);
     };
 
 } else {
@@ -40,11 +42,9 @@ function existiertEmail($email)
 {
     require('config.php');
 
-    $stmt = $pdo->prepare("
-
-    SELECT * FROM user WHERE email='$email';
-
-    ");
+    $sql = "SELECT * FROM user WHERE email='$email';";
+    
+    $stmt = $pdo->prepare($sql);
 
     if ($stmt->execute()) {
 

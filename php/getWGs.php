@@ -3,7 +3,7 @@
 require_once('config.php');
 require_once('authorization.php');
 
-$stmt = $pdo->prepare("
+$sql = "
 
 SELECT WG.ID, WG.titel, WG.bild, WG.adresse, ST.stadt, WG.beschreibung, U.name, U.email, WG.status, WG.timestamp
 FROM wg WG
@@ -13,9 +13,13 @@ INNER JOIN stadt ST
 ON WG.stadt = ST.ID
 ORDER BY WG.timestamp DESC;
 
-");
+";
 
-if ($stmt->execute()) {
+$stmt = $pdo->prepare($sql);
+
+$erfolg = $stmt->execute();
+
+if ($erfolg) {
 
   $array = $stmt->fetchAll();
 

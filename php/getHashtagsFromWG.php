@@ -7,15 +7,19 @@ require_once('authorization.php');
 
 $wgID = $_POST["wgID"];
 
-$stmt = $pdo->prepare("
+$sql = "
 
 SELECT h.ID, h.hashtag FROM hashtag h 
 INNER JOIN wg_hat_hashtag junc ON h.ID = junc.hashtag_id
 WHERE junc.wg_id = '$wgID';
 
-");
+";
 
-if ($stmt->execute()) {
+$stmt = $pdo->prepare($sql);
+
+$success = $stmt->execute();
+
+if ($success) {
 
     $resultateArray = $stmt->fetchAll();
 

@@ -1,21 +1,23 @@
 <?php
 
-deleteOldSessions();
+loescheAlteSessions();
 
 $userid = $_SERVER["PHP_AUTH_USER"];
 $token = $_SERVER["PHP_AUTH_PW"];
 
-$stmt = $pdo->prepare("
+$sql = "
 
 SELECT ID 
 FROM session 
 WHERE user_ID='$userid' 
 AND token='$token' 
-AND timestamp > (NOW() - INTERVAL 2 HOUR);
+AND timestamp > (NOW() - INTERVAL 2 HOUR);";
 
-");
+$stmt = $pdo->prepare($sql);
 
-if ($stmt->execute()) {
+$erfolg = $stmt->execute();
+
+if ($erfolg) {
 
     $resultateArray = $stmt->fetchAll();
 
@@ -25,14 +27,16 @@ if ($stmt->execute()) {
 
         $id = $resultateArray[0]['ID'];
 
-        updateTimestamp($id);
+        aktualisiereTimestamp($id);
+
     } else {
 
+        // sende einen http Fehler ans Frontend, exit Skript
         exit(http_response_code(401));
     }
 }
 
-function updateTimestamp($ID)
+function aktualisiereTimestamp($ID)
 {
     // update this session with current timestamp
 
@@ -43,18 +47,15 @@ function updateTimestamp($ID)
     $stmt->execute([$ID]);
 }
 
-function deleteOldSessions()
+function loescheAlteSessions()
 {
-
     require('config.php');
 
-    $stmt = $pdo->prepare("
-
+    $sql = "
     DELETE 
     FROM session
-    WHERE timestamp < (NOW() - INTERVAL 2 HOUR);
+    WHERE timestamp < (NOW() - INTERVAL 2 HOUR);";
 
-");
-
+    $stmt = $pdo->prepare($sql);
     $stmt->execute();
 }
