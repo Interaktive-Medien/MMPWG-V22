@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MMPWG-V22</title>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -14,26 +14,32 @@
 
 <body>
 
-    <div class="flex">
+    <header class="flex">
 
-        <div class="halbeSeite">
+        <div class="container-header">
+
+            <h2>Herzlich Willkommen, <span id="userName"> </span> </h2>
+
+        </div>
+
+        <div class="container-header">
 
             <h1>MMP-WG</h1>
 
         </div>
 
-        <nav class="halbeSeite">
+        <nav class="container-header">
 
             <a href="/wg.html">
                 <button id="neueWG"> Meine WG</button>
             </a>
+
             <button id="logout" onclick="logout()"> Logout </button>
 
         </nav>
 
-    </div>
+    </header>
 
-    <h2>Herzlich Willkommen, <span id="userName"> </span> </h2>
 
     <div id="liste-wg">
 

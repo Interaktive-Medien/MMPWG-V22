@@ -1,4 +1,4 @@
-const registrierButton = document.querySelector('#button-registrieren');
+let registrierButton = document.querySelector('#button-registrieren');
 
 registrierButton.addEventListener('click', async (e) => {
     e.preventDefault();
@@ -28,10 +28,7 @@ registrierButton.addEventListener('click', async (e) => {
         })
         .then((data) => {
 
-            
-
-            console.log(data);
-            document.querySelector('#nachricht').innerHTML = data;
+        document.querySelector('#nachricht').innerHTML = data;
 
         })
 

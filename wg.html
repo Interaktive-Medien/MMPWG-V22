@@ -8,32 +8,37 @@
     <title>Meine WG</title>
 
     <link rel="stylesheet" href="css/style.css">
-    
+
 </head>
 
 <body>
 
-    <div class="flex">
+    <header class="flex">
 
-        <div class="halbeSeite">
+        <div class="container-header">
 
-            <h1>Meine WG</h1>
+            <h2>Meine WG </h2>
 
         </div>
 
-        <nav class="halbeSeite">
+        <div class="container-header">
+
+
+        </div>
+
+        <nav class="container-header">
 
             <a href="../">
 
                 <button id="neueWG"> Alle WGs</button>
-
+                
             </a>
 
             <button id="logout" onclick="logout()"> Logout </button>
 
         </nav>
 
-    </div>
+    </header>
 
     <p id="infoText"> </p>
 
@@ -49,7 +54,7 @@
         <label for="bild">Bild URL</label> <br>
         <input id="bild" type="text" value=""> <br>
         <img id="bild-vorschau" width="300px" src="" alt=""> <br>
-        <a target="_blank" href="https://thishousedoesnotexist.org/">z.B. von thishousedoesnotexist.org</a> 
+        <a target="_blank" href="https://thishousedoesnotexist.org/">z.B. von thishousedoesnotexist.org</a>
         <br> <br>
 
         <label for="beschreibung">Beschreibung</label> <br>

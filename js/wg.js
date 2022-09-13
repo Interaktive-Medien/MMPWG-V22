@@ -1,8 +1,13 @@
 // globaler array hashtags
 var hashtags = [];
+
+// globale Variable wgID
 var wgID = "";
 
+//lade alle verfügbaren Hashtags aus der DB fürs Formular
 getAllHashtags();
+
+// lade die WG des eingeloggten Users
 getUserWG();
 
 function getUserWG() {
@@ -43,6 +48,8 @@ function getUserWG() {
         .then((data) => {
 
             // falls es noch keine WG zu diesem User gibt
+            // falls es noch keine WG zu diesem User gibt
+            // falls es noch keine WG zu diesem User gibt
             if (data.length == 0) {
 
                 // zeige Infotext an
@@ -52,10 +59,20 @@ function getUserWG() {
                 document.querySelector('#button-insert').classList.remove("hidden");
 
                 // falls es bereits eine WG zu diesem User gibt
+                // falls es bereits eine WG zu diesem User gibt
+                // falls es bereits eine WG zu diesem User gibt
             } else {
+
+                // speichere die wg ID in der globalen variable
+                // diese brauchen wir später zum aktualisieren und löschen der WG
+                wgID = data[0].ID;
 
                 // zeige Infotext an
                 document.querySelector('#infoText').innerHTML = "Hier kannst du deine WG bearbeiten:"
+
+                // zeige den korrekten Button an
+                document.querySelector('#button-update').classList.remove("hidden");
+                document.querySelector('#button-delete').classList.remove("hidden");
 
                 // fülle das Formular mit den Werten aus der DB aus
                 document.querySelector('#titel').value = data[0].titel;
@@ -63,15 +80,9 @@ function getUserWG() {
                 document.querySelector('#beschreibung').value = data[0].beschreibung;
                 document.querySelector('#stadt').value = data[0].stadt;
                 document.querySelector('#bild').value = data[0].bild;
-
                 document.querySelector('#bild-vorschau').src = data[0].bild;
 
-                // speichere die wg ID in der globalen variable
-                // diese brauchen wir später zum aktualisieren und löschen der WG
-                wgID = data[0].ID;
-
-                // setze den korrekten Status
-
+                // setze den korrekten Status (Radiobutton) aus den Infos der DB
                 if (data[0].status == 1) {
 
                     document.querySelector('#status-frei').checked = true;
@@ -82,23 +93,21 @@ function getUserWG() {
 
                 }
 
-                // hashtags korrekt einfärben, aber nur falls diese existieren
+                // färbe die Hashtags dieser WG korrekt ein
                 getHashtagsFromWG(wgID);
-
-                // zeige den korrekten Button an
-                document.querySelector('#button-update').classList.remove("hidden");
-                document.querySelector('#button-delete').classList.remove("hidden");
 
             }
         })
 }
 
+// wird mit onclick Event aus HTML getriggert
 function insertWG() {
 
     // get authentication variables from localstorage
     let user = localStorage.getItem('user');
     let token = localStorage.getItem('token');
 
+    // Formulardaten in Body übertragen
     let titel = document.querySelector('#titel').value;
     let adresse = document.querySelector('#adresse').value;
     let beschreibung = document.querySelector('#beschreibung').value;
@@ -147,10 +156,10 @@ function insertWG() {
         })
         .then((data) => {
 
-            console.log(data);
+            // zeige die Nachricht an
             document.querySelector('#nachricht').innerHTML = data;
 
-            // aktualisiere buttons
+            // aktualisiere Buttons
             document.querySelector('#button-insert').classList.add("hidden");
             document.querySelector('#button-update').classList.remove("hidden");
             document.querySelector('#button-delete').classList.remove("hidden");
@@ -161,13 +170,14 @@ function insertWG() {
 
 }
 
-
+// wird mit onclick Event aus HTML getriggert
 function updateWG() {
 
     // get authentication variables from localstorage
     let user = localStorage.getItem('user');
     let token = localStorage.getItem('token');
 
+    // Formulardaten in Body übertragen
     let titel = document.querySelector('#titel').value;
     let adresse = document.querySelector('#adresse').value;
     let beschreibung = document.querySelector('#beschreibung').value;
@@ -188,7 +198,6 @@ function updateWG() {
     formData.append('hashtags', jsonHashtags);
 
     formData.append('wgID', wgID);
-
 
     fetch("https://376009-17.web.fhgr.ch/php/updateWG.php",
         {
@@ -218,16 +227,13 @@ function updateWG() {
         })
         .then((data) => {
 
-            console.log(data);
+            // zeige die Nachricht an
             document.querySelector('#nachricht').innerHTML = data;
 
         })
-
-
-
 }
 
-
+// wird mit onclick Event aus HTML getriggert
 function deleteWG() {
 
     // get authentication variables from localstorage
@@ -274,7 +280,7 @@ function deleteWG() {
             document.querySelector('#button-update').classList.add("hidden");
             document.querySelector('#button-delete').classList.add("hidden");
 
-            // felder leeren
+            // Formularfelder leeren
             document.querySelector('#titel').value = "";
             document.querySelector('#adresse').value = "";
             document.querySelector('#beschreibung').value = "";
@@ -287,9 +293,10 @@ function deleteWG() {
 
             document.querySelector('.hashtag').style = "Color: black;"
 
+            // Variablen leeren
             hashtags = [];
             wgID = "";
-            
+
 
 
         })
@@ -306,6 +313,7 @@ function deleteWG() {
 // Hashtags
 // Hashtags
 
+// lade alle Hashtags aus der Datenbank
 function getAllHashtags() {
 
     // get authentication variables from localstorage
@@ -342,8 +350,7 @@ function getAllHashtags() {
 
             data.forEach(hashtag => {
 
-                // console.log(hashtag);
-
+                // schreibe Hashtags ins HTML
                 let dieserHashtag = document.createElement("div");
 
                 dieserHashtag.innerHTML = " <p onclick='addHashtag(" + hashtag.ID + ")' id='" + hashtag.ID + "' class='hashtag'> #" + hashtag.hashtag + "</p> ";
@@ -356,8 +363,10 @@ function getAllHashtags() {
         })
 }
 
+// beim Klick auf einen Hashtag wird dessen ID dem globalen Hashtag-Array hinzugefügt
 function addHashtag(id) {
 
+    // Prüfe, ob hashtag bereits im Array ist 
     if (hashtags.indexOf(id) == -1) {
 
         document.getElementById(id).style = "Color: blue;"
@@ -374,6 +383,7 @@ function addHashtag(id) {
 
 }
 
+// lade die ausgewählten (selected) Hashtags zu dieser WG
 function getHashtagsFromWG(id) {
 
     // get authentication variables from localstorage
@@ -410,10 +420,6 @@ function getHashtagsFromWG(id) {
 
         })
         .then((data) => {
-
-            // console.log(id);
-
-            // console.log(data);
 
             if (data) {
 

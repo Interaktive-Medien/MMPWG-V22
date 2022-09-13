@@ -1,4 +1,7 @@
+// zeige alle WGs an
 getWGs();
+
+// zeige eingeloggten Username an
 getUser();
 
 function getWGs() {
@@ -35,30 +38,42 @@ function getWGs() {
         })
         .then((data) => {
 
-            zeichneWGs(data);
+            WGsAnzeigen(data);
 
         })
 }
 
-function zeichneWGs(data) {
+function WGsAnzeigen(data) {
 
-    data.forEach(element => {
+    data.forEach(wg => {
 
-        const child = document.createElement("div");
-        child.innerHTML =
+        // status-emoji erstellen, ggf. in Funktion auslagern
+        if (parseInt(wg.status)){
+
+            wg.status = '🟢';
+
+        } else {
+
+            wg.status = "🔴"
+
+        }
+
+        // evtl vereinfachen?
+        let wgContainer = document.createElement("div");
+        wgContainer.innerHTML =
 
             '<div class="wg">' +
-            '<h2>' + element.titel + '</h2>' +
-            '<img class="wg-image" src="' + element.bild + '">' +
-            '<p>' + element.beschreibung + '</p>' +
-            '<a href="maps.google.com">' + element.adresse + '</a>' +
-            '<p> <span id="WG-' + element.ID + '">  </span> </p>'
+            '<h2>' + wg.status + ' ' + wg.titel + '</h2>' +
+            '<img class="wg-image" src="' + wg.bild + '">' +
+            '<p>' + wg.beschreibung + '</p>' +
+            '📍 <a target="_blank" href="https://www.google.com/maps/search/?api=1&query='+ wg.adresse + '">' + wg.adresse + '</a> <br>' +
+            '👉 <a target="_blank" href="https://www.google.com/maps/search/?api=1&query='+ wg.adresse + '">' + wg.email + '</a>' +
+            '<p> <b> <span id="WG-' + wg.ID + '">  </span> <b> </p>'
             + '</div>';
 
+        document.getElementById("liste-wg").appendChild(wgContainer);
 
-        document.getElementById("liste-wg").appendChild(child);
-
-        getHashtagsFromWG(element.ID);
+        getHashtagsFromWG(wg.ID);
 
     });
 
@@ -106,6 +121,7 @@ function getUser() {
         })
 }
 
+// hole die Hashtags aus der Relationstabelle für jede WG in der Übersicht
 function getHashtagsFromWG(id) {
 
     // get authentication variables from localstorage
@@ -143,14 +159,12 @@ function getHashtagsFromWG(id) {
         })
         .then((data) => {
 
-            console.log(id);
-
-            console.log(data);
-
             if (data.length > 0){
 
             data.forEach(element => {
 
+                // füge die Hashtags ins Dokument ein 
+               // (hook: ID, welche in der Funktion WGsAnzeigen dynamisch vergeben wird)
                 document.getElementById("WG-" + id).innerHTML += '#' + element.hashtag + ' ';
 
             });

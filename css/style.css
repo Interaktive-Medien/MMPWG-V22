@@ -8,6 +8,7 @@ h1 {
 
     font-size: 40px;
     color: #4c86af;
+    text-align: center;
 
 }
 
@@ -25,32 +26,33 @@ textarea {
     width: 50%;
 }
 
-.dropdown{
-
-    margin: 10px;  
-}
-
 button {
 
     margin: 10px;
 
 }
 
+.dropdown{
+
+    margin: 10px;  
+}
+
 .wg {
 
     border: 2px solid rgb(110, 168, 192);
     padding: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .wg-image {
 
-    width: 20%;
+    width: 50%;
 }
 
 #liste-wg {
 
     width: 50%;
+    margin: auto;
 
 }
 
@@ -60,7 +62,6 @@ nav {
 
 button {
     background-color: #4c86af;
-    /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -76,9 +77,9 @@ button {
     display: flex;
 }
 
-.halbeSeite {
+.container-header {
 
-    width: 50%;
+    width: 33%;
 }
 
 .hidden {
