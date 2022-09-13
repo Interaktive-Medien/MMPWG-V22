@@ -12,3 +12,8 @@
 3) Lade database.sql in phpmyadmin hoch.
 4) Lade alle Dateien auf den Webserver
 5) Stelle sicher, dass sich die .htaccess Datei auf deinem Webserver im Root-Folder befindet. Diese wird für den Authorization-Header gebraucht.
+
+## Fehlende Features
+
+- Formularvalidierung
+- Dropdown Stadt und Tabelle Stadt ggf. entfernen, da Doppelspurigkeit mit Hashtags
