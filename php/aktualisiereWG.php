@@ -1,6 +1,6 @@
 <?php
 require_once('config.php');
-require_once('authorization.php');
+require_once('authorisieren.php');
 
 $userID = $_POST["userID"];
 $titel = $_POST["titel"];
