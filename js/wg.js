@@ -26,7 +26,7 @@ function getUserWG() {
             headers: {
 
                 'Authorization': 'Basic ' + btoa(userID + ':' + token),
-                // 'CustomHeader' : 'hallo'
+
             }
         })
 
@@ -135,7 +135,7 @@ function insertWG() {
             headers: {
 
                 'Authorization': 'Basic ' + btoa(userID + ':' + token),
-                // 'CustomHeader' : 'hallo'
+
             }
         })
 
@@ -206,7 +206,7 @@ function updateWG() {
             headers: {
 
                 'Authorization': 'Basic ' + btoa(userID + ':' + token),
-                // 'CustomHeader' : 'hallo'
+
             }
         })
 
@@ -251,7 +251,7 @@ function deleteWG() {
             headers: {
 
                 'Authorization': 'Basic ' + btoa(userID + ':' + token),
-                // 'CustomHeader' : 'hallo'
+
             }
         })
 
@@ -327,7 +327,7 @@ function getAllHashtags() {
             headers: {
 
                 'Authorization': 'Basic ' + btoa(userID + ':' + token),
-                // 'CustomHeader' : 'hallo'
+
             }
         })
 

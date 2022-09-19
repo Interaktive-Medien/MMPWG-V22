@@ -18,7 +18,7 @@ function getWGs() {
             headers: {
 
                 'Authorization': 'Basic ' + btoa(userID + ':' + token),
-                // 'CustomHeader' : 'hallo'
+
             }
         })
 
@@ -97,7 +97,7 @@ function getUser() {
             headers: {
 
                 'Authorization': 'Basic ' + btoa(userID + ':' + token),
-                // 'CustomHeader' : 'hallo'
+
             }
         })
 

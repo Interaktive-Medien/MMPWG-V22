@@ -1,5 +1,8 @@
 <?php
 
+// damit basic-auth funktioniert, muss in .htaccess folgende zeile sein:
+// RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
 $userid = $_SERVER["PHP_AUTH_USER"];
 $token = $_SERVER["PHP_AUTH_PW"];
 

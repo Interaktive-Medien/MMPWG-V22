@@ -9,16 +9,13 @@ registrierButton.addEventListener('click', async (e) => {
 
     let formData = new FormData();
     formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
 
     fetch("https://376009-17.web.fhgr.ch/php/register.php",
         {
             body: formData,
             method: "post",
-            headers: {
-
-                'Authorization': 'Basic ' + btoa(email + ':' + password),
-                // 'CustomHeader' : 'hallo'
-            }
         })
 
         .then((res) => {
