@@ -12,7 +12,7 @@ registrierButton.addEventListener('click', async (e) => {
     formData.append('email', email);
     formData.append('password', password);
 
-    fetch("https://376009-17.web.fhgr.ch/php/register.php",
+    fetch("https://376009-17.web.fhgr.ch/php/registrieren.php",
         {
             body: formData,
             method: "post",

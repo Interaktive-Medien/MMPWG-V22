@@ -5,12 +5,12 @@ var hashtags = [];
 var wgID = "";
 
 //lade alle verfügbaren Hashtags aus der DB fürs Formular
-getAllHashtags();
+holeAlleHashtags();
 
 // lade die WG des eingeloggten Users
-getUserWG();
+holeUserWG();
 
-function getUserWG() {
+function holeUserWG() {
 
     // get authentication variables from localstorage
     let userID = localStorage.getItem('userID');
@@ -19,7 +19,7 @@ function getUserWG() {
     let formData = new FormData();
     formData.append('userID', userID);
 
-    fetch("https://376009-17.web.fhgr.ch/php/getUserWG.php",
+    fetch("https://376009-17.web.fhgr.ch/php/holeUserWG.php",
         {
             body: formData,
             method: "post",
@@ -94,14 +94,14 @@ function getUserWG() {
                 }
 
                 // färbe die Hashtags dieser WG korrekt ein
-                getHashtagsFromWG(wgID);
+                holeHashtagsVonWG(wgID);
 
             }
         })
 }
 
 // wird mit onclick Event aus HTML getriggert
-function insertWG() {
+function neueWG() {
 
     // get authentication variables from localstorage
     let userID = localStorage.getItem('userID');
@@ -128,7 +128,7 @@ function insertWG() {
 
     formData.append('hashtags', jsonHashtags);
 
-    fetch("https://376009-17.web.fhgr.ch/php/insertWG.php",
+    fetch("https://376009-17.web.fhgr.ch/php/neueWG.php",
         {
             body: formData,
             method: "post",
@@ -171,7 +171,7 @@ function insertWG() {
 }
 
 // wird mit onclick Event aus HTML getriggert
-function updateWG() {
+function aktualisiereWG() {
 
     // get authentication variables from localstorage
     let userID = localStorage.getItem('userID');
@@ -199,7 +199,7 @@ function updateWG() {
 
     formData.append('wgID', wgID);
 
-    fetch("https://376009-17.web.fhgr.ch/php/updateWG.php",
+    fetch("https://376009-17.web.fhgr.ch/php/aktualisiereWG.php",
         {
             body: formData,
             method: "post",
@@ -234,7 +234,7 @@ function updateWG() {
 }
 
 // wird mit onclick Event aus HTML getriggert
-function deleteWG() {
+function loescheWG() {
 
     // get authentication variables from localstorage
     let userID = localStorage.getItem('userID');
@@ -244,7 +244,7 @@ function deleteWG() {
     formData.append('userID', userID);
     formData.append('wgID', wgID);
 
-    fetch("https://376009-17.web.fhgr.ch/php/deleteWG.php",
+    fetch("https://376009-17.web.fhgr.ch/php/loescheWG.php",
         {
             body: formData,
             method: "post",
@@ -314,13 +314,13 @@ function deleteWG() {
 // Hashtags
 
 // lade alle Hashtags aus der Datenbank
-function getAllHashtags() {
+function holeAlleHashtags() {
 
     // get authentication variables from localstorage
     let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
-    fetch("https://376009-17.web.fhgr.ch/php/getAllHashtags.php",
+    fetch("https://376009-17.web.fhgr.ch/php/holeAlleHashtags.php",
         {
             body: "",
             method: "post",
@@ -384,7 +384,7 @@ function addHashtag(id) {
 }
 
 // lade die ausgewählten (selected) Hashtags zu dieser WG
-function getHashtagsFromWG(id) {
+function holeHashtagsVonWG(id) {
 
     // get authentication variables from localstorage
     let userID = localStorage.getItem('userID');
@@ -393,7 +393,7 @@ function getHashtagsFromWG(id) {
     let formData = new FormData();
     formData.append('wgID', id);
 
-    fetch("https://376009-17.web.fhgr.ch/php/getHashtagsFromWG.php",
+    fetch("https://376009-17.web.fhgr.ch/php/holeHashtagsVonWG.php",
         {
             body: formData,
             method: "post",

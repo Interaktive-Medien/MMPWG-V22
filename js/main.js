@@ -1,17 +1,16 @@
 
 // zeige alle WGs an
-getWGs();
+holeWGs();
 
 // zeige eingeloggten Username an
-getUser();
+holeUser();
 
-function getWGs() {
+function holeWGs() {
 
     let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
-    // return fetch("https://376009-17.web.fhgr.ch/php/getWGs.php",
-    fetch("https://376009-17.web.fhgr.ch/php/getWGs.php",
+    fetch("https://376009-17.web.fhgr.ch/php/holeWGs.php",
         {
             body: '',
             method: "post",
@@ -75,13 +74,13 @@ function WGsAnzeigen(data) {
 
         document.getElementById("liste-wg").appendChild(wgContainer);
 
-        getHashtagsFromWG(wg.ID);
+        holeHashtagsVonWG(wg.ID);
 
     });
 
 }
 
-function getUser() {
+function holeUser() {
 
     // get authentication variables from localstorage
     let userID = localStorage.getItem('userID');
@@ -90,7 +89,7 @@ function getUser() {
     let formData = new FormData();
     formData.append('userID', userID);
 
-    fetch("https://376009-17.web.fhgr.ch/php/getUser.php",
+    fetch("https://376009-17.web.fhgr.ch/php/holeUser.php",
         {
             body: formData,
             method: "post",
@@ -124,7 +123,7 @@ function getUser() {
 }
 
 // hole die Hashtags aus der Relationstabelle für jede WG in der Übersicht
-function getHashtagsFromWG(id) {
+function holeHashtagsVonWG(id) {
 
     // get authentication variables from localstorage
     let userID = localStorage.getItem('userID');
@@ -133,7 +132,7 @@ function getHashtagsFromWG(id) {
     let formData = new FormData();
     formData.append('wgID', id);
 
-    fetch("https://376009-17.web.fhgr.ch/php/getHashtagsFromWG.php",
+    fetch("https://376009-17.web.fhgr.ch/php/holeHashtagsVonWG.php",
         {
             body: formData,
             method: "post",
