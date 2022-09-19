@@ -2,10 +2,9 @@
 // noch testen: require statt require once, damit in funktionen verfügbar?
 require_once('config.php');
 
-// get authorization header variables from fetch request
 
-$email = $_SERVER["PHP_AUTH_USER"];
-$password = $_SERVER["PHP_AUTH_PW"];
+$email = $_POST["email"];
+$password = $_POST["password"];
 
 // prüfe, ob mit dieser E-Mail ein User registriert ist
 $sql = "SELECT ID, name, email, password FROM user WHERE email='$email';";

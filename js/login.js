@@ -6,15 +6,14 @@ registrierButton.addEventListener('click', async (e) => {
     let email = document.querySelector('#email').value;
     let password = document.querySelector('#password').value;
 
+    let formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
     fetch("https://376009-17.web.fhgr.ch/php/login.php",
         {
-
+            body: formData,
             method: "post",
-            headers: {
-
-                'Authorization': 'Basic ' + btoa(email + ':' + password),
-
-            }
         })
 
         .then((res) => {
