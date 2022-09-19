@@ -24,10 +24,11 @@ registrierButton.addEventListener('click', async (e) => {
         })
         .then((data) => {
 
-            console.log(data);
+            // console.log(data);
             document.querySelector('#nachricht').innerHTML = data[0];
 
-            localStorage.setItem("user", data[1]);
+            // variable userid nennen, statt user
+            localStorage.setItem("userID", data[1]);
             localStorage.setItem("token", data[2]);
 
             if (data[1] != 0 && data[2] != 0) {

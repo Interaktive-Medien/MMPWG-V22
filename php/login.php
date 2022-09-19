@@ -1,4 +1,5 @@
 <?php
+// noch testen: require statt require once, damit in funktionen verfügbar?
 require_once('config.php');
 
 // get authorization header variables from fetch request
@@ -7,14 +8,16 @@ $email = $_SERVER["PHP_AUTH_USER"];
 $password = $_SERVER["PHP_AUTH_PW"];
 
 // prüfe, ob mit dieser E-Mail ein User registriert ist
-
 $sql = "SELECT ID, name, email, password FROM user WHERE email='$email';";
+
 $stmt = $pdo->prepare($sql);
 
+// oder hier fetch statt execute?
 $erfolg = $stmt->execute();
 
-if ($erfolg) { 
-
+if ($erfolg) {
+    
+    // doppelt gemoppelt? noch testen
     $resultateArray = $stmt->fetchAll();
 
     $anzahlResultate = count($resultateArray);
@@ -22,7 +25,7 @@ if ($erfolg) {
     // nur wenn genau 1 user mit dieser email registriert ist, kann eingeloggt werden
     if ($anzahlResultate == 1) {
 
-        // speichere das passwort des users in einer variable
+        // pw aus der db in variable schreiben
         $dbPasswort = $resultateArray[0]['password'];
 
         $userInfo = $resultateArray[0];

@@ -1,3 +1,4 @@
+
 // zeige alle WGs an
 getWGs();
 
@@ -6,17 +7,17 @@ getUser();
 
 function getWGs() {
 
-    // get authentication variables from localstorage
-    let user = localStorage.getItem('user');
+    let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
+    // return fetch("https://376009-17.web.fhgr.ch/php/getWGs.php",
     fetch("https://376009-17.web.fhgr.ch/php/getWGs.php",
         {
             body: '',
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                'Authorization': 'Basic ' + btoa(userID + ':' + token),
                 // 'CustomHeader' : 'hallo'
             }
         })
@@ -38,6 +39,7 @@ function getWGs() {
         })
         .then((data) => {
 
+            // return data;
             WGsAnzeigen(data);
 
         })
@@ -82,11 +84,11 @@ function WGsAnzeigen(data) {
 function getUser() {
 
     // get authentication variables from localstorage
-    let user = localStorage.getItem('user');
+    let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
     let formData = new FormData();
-    formData.append('userID', user);
+    formData.append('userID', userID);
 
     fetch("https://376009-17.web.fhgr.ch/php/getUser.php",
         {
@@ -94,7 +96,7 @@ function getUser() {
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                'Authorization': 'Basic ' + btoa(userID + ':' + token),
                 // 'CustomHeader' : 'hallo'
             }
         })
@@ -125,7 +127,7 @@ function getUser() {
 function getHashtagsFromWG(id) {
 
     // get authentication variables from localstorage
-    let user = localStorage.getItem('user');
+    let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
     let formData = new FormData();
@@ -137,7 +139,7 @@ function getHashtagsFromWG(id) {
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                'Authorization': 'Basic ' + btoa(userID + ':' + token),
 
             }
         })

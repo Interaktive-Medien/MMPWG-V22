@@ -13,11 +13,11 @@ getUserWG();
 function getUserWG() {
 
     // get authentication variables from localstorage
-    let user = localStorage.getItem('user');
+    let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
     let formData = new FormData();
-    formData.append('userID', user);
+    formData.append('userID', userID);
 
     fetch("https://376009-17.web.fhgr.ch/php/getUserWG.php",
         {
@@ -25,7 +25,7 @@ function getUserWG() {
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                'Authorization': 'Basic ' + btoa(userID + ':' + token),
                 // 'CustomHeader' : 'hallo'
             }
         })
@@ -104,7 +104,7 @@ function getUserWG() {
 function insertWG() {
 
     // get authentication variables from localstorage
-    let user = localStorage.getItem('user');
+    let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
     // Formulardaten in Body übertragen
@@ -118,7 +118,7 @@ function insertWG() {
     let jsonHashtags = JSON.stringify(hashtags)
 
     let formData = new FormData();
-    formData.append('userID', user);
+    formData.append('userID', userID);
     formData.append('titel', titel);
     formData.append('adresse', adresse);
     formData.append('beschreibung', beschreibung);
@@ -134,7 +134,7 @@ function insertWG() {
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                'Authorization': 'Basic ' + btoa(userID + ':' + token),
                 // 'CustomHeader' : 'hallo'
             }
         })
@@ -174,7 +174,7 @@ function insertWG() {
 function updateWG() {
 
     // get authentication variables from localstorage
-    let user = localStorage.getItem('user');
+    let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
     // Formulardaten in Body übertragen
@@ -188,7 +188,7 @@ function updateWG() {
     let jsonHashtags = JSON.stringify(hashtags)
 
     let formData = new FormData();
-    formData.append('userID', user);
+    formData.append('userID', userID);
     formData.append('titel', titel);
     formData.append('adresse', adresse);
     formData.append('beschreibung', beschreibung);
@@ -205,7 +205,7 @@ function updateWG() {
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                'Authorization': 'Basic ' + btoa(userID + ':' + token),
                 // 'CustomHeader' : 'hallo'
             }
         })
@@ -237,11 +237,11 @@ function updateWG() {
 function deleteWG() {
 
     // get authentication variables from localstorage
-    let user = localStorage.getItem('user');
+    let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
     let formData = new FormData();
-    formData.append('userID', user);
+    formData.append('userID', userID);
     formData.append('wgID', wgID);
 
     fetch("https://376009-17.web.fhgr.ch/php/deleteWG.php",
@@ -250,7 +250,7 @@ function deleteWG() {
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                'Authorization': 'Basic ' + btoa(userID + ':' + token),
                 // 'CustomHeader' : 'hallo'
             }
         })
@@ -317,7 +317,7 @@ function deleteWG() {
 function getAllHashtags() {
 
     // get authentication variables from localstorage
-    let user = localStorage.getItem('user');
+    let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
     fetch("https://376009-17.web.fhgr.ch/php/getAllHashtags.php",
@@ -326,7 +326,7 @@ function getAllHashtags() {
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                'Authorization': 'Basic ' + btoa(userID + ':' + token),
                 // 'CustomHeader' : 'hallo'
             }
         })
@@ -387,7 +387,7 @@ function addHashtag(id) {
 function getHashtagsFromWG(id) {
 
     // get authentication variables from localstorage
-    let user = localStorage.getItem('user');
+    let userID = localStorage.getItem('userID');
     let token = localStorage.getItem('token');
 
     let formData = new FormData();
@@ -399,7 +399,7 @@ function getHashtagsFromWG(id) {
             method: "post",
             headers: {
 
-                'Authorization': 'Basic ' + btoa(user + ':' + token),
+                'Authorization': 'Basic ' + btoa(userID + ':' + token),
 
             }
         })

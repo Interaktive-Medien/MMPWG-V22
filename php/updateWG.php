@@ -69,6 +69,7 @@ function insertNeueHashtags($hashtags, $wgID){
             // gib die Fehlermeldung aus
             print_r($erfolg);
         }
+        
     } else {
 
         print_r("Dein Inserat wurde ohne Hashtags aktualisiert.");

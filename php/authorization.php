@@ -1,7 +1,5 @@
 <?php
 
-loescheAlteSessions();
-
 $userid = $_SERVER["PHP_AUTH_USER"];
 $token = $_SERVER["PHP_AUTH_PW"];
 
@@ -59,3 +57,5 @@ function loescheAlteSessions()
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 }
+
+loescheAlteSessions();
