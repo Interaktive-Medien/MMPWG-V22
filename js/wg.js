@@ -56,7 +56,7 @@ function holeUserWG() {
                 document.querySelector('#infoText').innerHTML = "Fülle dieses Formular aus, um deine WG aufzuschalten:"
 
                 // zeige den korrekten Button an
-                document.querySelector('#button-insert').classList.remove("hidden");
+                document.querySelector('#button-neue').classList.remove("hidden");
 
                 // falls es bereits eine WG zu diesem User gibt
                 // falls es bereits eine WG zu diesem User gibt
@@ -71,8 +71,8 @@ function holeUserWG() {
                 document.querySelector('#infoText').innerHTML = "Hier kannst du deine WG bearbeiten:"
 
                 // zeige den korrekten Button an
-                document.querySelector('#button-update').classList.remove("hidden");
-                document.querySelector('#button-delete').classList.remove("hidden");
+                document.querySelector('#button-aktualisieren').classList.remove("hidden");
+                document.querySelector('#button-loeschen').classList.remove("hidden");
 
                 // fülle das Formular mit den Werten aus der DB aus
                 document.querySelector('#titel').value = data[0].titel;
@@ -160,9 +160,9 @@ function neueWG() {
             document.querySelector('#nachricht').innerHTML = data;
 
             // aktualisiere Buttons
-            document.querySelector('#button-insert').classList.add("hidden");
-            document.querySelector('#button-update').classList.remove("hidden");
-            document.querySelector('#button-delete').classList.remove("hidden");
+            document.querySelector('#button-neue').classList.add("hidden");
+            document.querySelector('#button-aktualisieren').classList.remove("hidden");
+            document.querySelector('#button-loeschen').classList.remove("hidden");
 
         })
 
@@ -276,9 +276,9 @@ function loescheWG() {
             document.querySelector('#nachricht').innerHTML = data;
 
             // button aktualisieren
-            document.querySelector('#button-insert').classList.remove("hidden");
-            document.querySelector('#button-update').classList.add("hidden");
-            document.querySelector('#button-delete').classList.add("hidden");
+            document.querySelector('#button-neue').classList.remove("hidden");
+            document.querySelector('#button-aktualisieren').classList.add("hidden");
+            document.querySelector('#button-loeschen').classList.add("hidden");
 
             // Formularfelder leeren
             document.querySelector('#titel').value = "";
